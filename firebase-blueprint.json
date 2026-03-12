@@ -1,0 +1,43 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "A user of the dental practice platform.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The unique ID of the user." },
+        "name": { "type": "string", "description": "The full name of the user." },
+        "email": { "type": "string", "format": "email", "description": "The email address of the user." },
+        "role": { "type": "string", "enum": ["patient", "admin"], "description": "The role of the user." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the user account was created." }
+      },
+      "required": ["uid", "name", "email", "role"]
+    },
+    "Appointment": {
+      "title": "Appointment",
+      "description": "A dental appointment booking.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The UID of the patient who booked the appointment." },
+        "patientName": { "type": "string", "description": "Name of the patient." },
+        "email": { "type": "string", "format": "email", "description": "Email of the patient." },
+        "date": { "type": "string", "description": "Date of the appointment (YYYY-MM-DD)." },
+        "time": { "type": "string", "description": "Time of the appointment (HH:mm)." },
+        "service": { "type": "string", "description": "The dental service requested." },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "cancelled"], "description": "Status of the appointment." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the appointment was booked." }
+      },
+      "required": ["uid", "patientName", "email", "date", "time", "service", "status"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile data."
+    },
+    "/appointments/{appointmentId}": {
+      "schema": "Appointment",
+      "description": "Appointment booking records."
+    }
+  }
+}
